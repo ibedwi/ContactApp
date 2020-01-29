@@ -7,14 +7,22 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "flow": "flow"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.105.0",
+    "lodash": "^4.17.15",
     "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react-native": "0.61.5",
+    "react-native-elements": "^1.2.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-flow": "^7.8.3",
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
