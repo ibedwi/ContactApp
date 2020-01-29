@@ -4,10 +4,10 @@ import SERVICES from '../services';
  * Used to get contacts
  */
 export const getContacts = () => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     SERVICES.getContacts()
       .then(res => resolve(res))
-      .catcth(err => reject(err))
+      .catch(err => reject(err))
   })
 };
 
@@ -15,10 +15,10 @@ export const getContacts = () => {
  * Used to get contact
  */
 export const getContact = (id) => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     SERVICES.getContact(id)
       .then(res => resolve(res))
-      .catcth(err => reject(err))
+      .catch(err => reject(err))
   })
 };
 
@@ -31,10 +31,10 @@ export const getContact = (id) => {
  * @param {string} data.photo       - new contact's photo url
  */
 export const createContact = (id,data) => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     SERVICES.createContact(data)
       .then(res => resolve(res))
-      .catcth(err => reject(err))
+      .catch(err => reject(err))
   })
 }
 
@@ -43,10 +43,10 @@ export const createContact = (id,data) => {
  * @param {string} id - contact's id that will be deleted
  */
 export const deleteContact = (id) => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     SERVICES.deleteContact(id)
       .then(res => resolve(res))
-      .catcth(err => reject(err))
+      .catch(err => reject(err))
   })
 }
 
@@ -60,10 +60,10 @@ export const deleteContact = (id) => {
  * @param {string} data.photo       - edited contact's photo url
  */
 export const editContact = (id, data) => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     SERVICES.editContact(id, data)
       .then(res => resolve(res))
-      .catcth(err => reject(err))
+      .catch(err => reject(err))
   })
 }
 

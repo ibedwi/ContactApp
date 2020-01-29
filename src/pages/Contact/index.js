@@ -4,6 +4,7 @@ import {
   View, 
   Text
 } from 'react-native';
+import { ListItem } from 'react-native-elements';
 
 import ACTIONS from '../../models/actions';
 
@@ -13,25 +14,16 @@ class Contact extends Component {
   
     this.state = {
         // Error Handling
-        hasError: false
+        hasError: false,
+
+        contacts: []
     }
   
   }
   
-  //static getDerivedStateFromProps(nextProps, prevState) { 
-  //}
-  
   componentDidMount() {
-  
+    this.fetchContacts();
   }
-  
-  //shouldComponentUpdate(nextProps, nextState) {
-  
-  //}
-  
-  //getSnapshotBeforeUpdate(prevProps, prevState){
-  
-  //}
   
   componentDidUpdate(prevProps, prevState) {
   
@@ -40,12 +32,6 @@ class Contact extends Component {
   componentWillUnmount() {
   
   }
-  
-  //static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
-    //console.log(`Error log from getDerivedStateFromError: error`);
-    //return { hasError: true };
-  //}
   
   componentDidCatch(error, info) {
     console.log(`Error log from componentDidCatch: error`);
@@ -58,24 +44,24 @@ class Contact extends Component {
   ========================================================
   */
 
-  fetchContacts = async () => {
-    ACTIONS.getContacts()
-      .then(res => {
-        console.log('contacts', res.data.data)
-      })
-      .catct(err => {
-        console.error('Gagal mengambil data', err)
-      })
-  }
-  // clickHandlers or eventHandlers like onClickSubmit() or onChangeDescription()
-
   /*
   ========================================================
   METHOD - DATA FETCHING
   ========================================================
   */
 
-  // data fetching methods for render like getSelectReason() or getFooterContent()
+  fetchContacts = async () => {
+    ACTIONS.getContacts()
+      .then(res => {
+        console.log('contacts', res.data.data)
+        let contacts = res.data.data || [];
+
+        this.setState({ contacts })
+      })
+      .catch(err => {
+        console.error('Gagal mengambil data', err)
+      })
+  }
 
   /*
   ========================================================
@@ -83,16 +69,35 @@ class Contact extends Component {
   ========================================================
   */
 
-  // optional render methods like renderNavigation() or renderProfilePicture()
+  renderContacts = () => {
+    const { contacts } = this.state;
+    return (
+      <View>
+        {
+          contacts.map((contact) => 
+            <ListItem
+              key={contact.id}
+              leftAvatar={{ source: { uri: contact.photo ? contact.photo : '' } }}
+              title={contact.firstName + contact.lastName}
+              subtitle={contact.age.toString()}
+              bottomDivider
+            />
+          )
+        }
+      </View>
+    )
+  }
   
   render() {
     if (this.state.hasError) {
       // Fallback UI when Error
       // return 
     }
+
     return (
       <View>
         <Text>Contact Page</Text>
+        { this.renderContacts() }
       </View>
     )
   }
