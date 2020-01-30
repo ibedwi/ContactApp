@@ -8,10 +8,12 @@ import {
   Alert
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import EventBus from 'eventing-bus';
 
 import ACTIONS from '../../models/actions';
 import DeleteModal from '../../components/Modal/index';
 import Header from '../../components/Header';
+import NavigationUtils from '../../utils/navigation.utils';
 
 class Contact extends Component {
   constructor(props){
@@ -30,6 +32,8 @@ class Contact extends Component {
   
   componentDidMount() {
     this.fetchContacts();
+
+    EventBus.on('refetch_contact', () => this.fetchContacts())
   }
   
   componentDidUpdate(prevProps, prevState) {
@@ -62,6 +66,10 @@ class Contact extends Component {
       deleteContact: contact,
       showDeleteModal: true
     })
+  }
+
+  onPressContact = (contact) => {
+    NavigationUtils.navigate('stack_edit_contact', { contact: contact });
   }
 
   confirmDelete = (index) => {
@@ -103,10 +111,12 @@ class Contact extends Component {
             <ListItem
               key={contact.id}
               leftAvatar={{ source: { uri: contact.photo ? contact.photo : '' } }}
-              title={contact.firstName + contact.lastName}
+              title={contact.firstName + ' ' + contact.lastName}
               subtitle={contact.age.toString()}
               bottomDivider
               onLongPress={ () => this.onLongPressContact(contact) }
+              onPress={ () => this.onPressContact(contact) }
+              chevron
             />
           )
         }

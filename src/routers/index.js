@@ -5,6 +5,7 @@ import {
 
 import Contact from '../pages/Contact';
 import AddContact from '../pages/AddContact';
+import EditContact from '../pages/EditContact';
 
 const stackNavigator = createStackNavigator({
   stack_contact: {
@@ -15,6 +16,12 @@ const stackNavigator = createStackNavigator({
   },
   stack_add_contact: {
     screen: AddContact,
+    navigationOptions: {
+      header: null
+    }
+  },
+  stack_edit_contact: {
+    screen: EditContact,
     navigationOptions: {
       header: null
     }
