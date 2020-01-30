@@ -58,7 +58,11 @@ class EditContact extends Component {
 
   onSubmit = async (data) => {
     console.log('')
-    ACTIONS.editContact(this.state.contact.id, data)
+    let submittedData = {
+      ...data,
+      age: Number(data.age)
+    }
+    ACTIONS.editContact(this.state.contact.id, submittedData)
       .then(res => {
         console.log('Success edit contact', res);
         EventBus.publish('refetch_contact');

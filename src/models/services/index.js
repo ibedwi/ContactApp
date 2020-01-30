@@ -35,6 +35,7 @@ export const createContact = (data) => {
  * @param {string} id - contact's id that will be deleted
  */
 export const deleteContact = (id) => {
+  console.log('deleteContact', id);
   return SERVER.delete(`/contact/${id}`)
 }
 

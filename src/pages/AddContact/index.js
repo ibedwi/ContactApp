@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import { Text, View } from 'react-native';
-import yup from 'yup';
+import { View } from 'react-native';
 import { 
   Input,
   Button
 } from 'react-native-elements';
-import theme from '../../styles/theme.styles';
+import EventBus from 'eventing-bus';
+
 import Header from '../../components/Header';
 import NavigationUtils from '../../utils/navigation.utils';
 import ACTIONS from '../../models/actions';
-
 class AddContact extends Component {
   constructor(props){
     super(props);
@@ -47,9 +46,15 @@ class AddContact extends Component {
 
   onSubmit = async (data) => {
     console.log('data', data)
-    ACTIONS.createContact(data)
+    let submittedData = {
+      ...data,
+      age: Number(data.age)
+    }
+
+    ACTIONS.createContact(submittedData)
       .then(res => {
         console.log('Success create contact', res);
+        EventBus.publish('refetch_contact');
         NavigationUtils.popAction();
       })
       .catch(err => {

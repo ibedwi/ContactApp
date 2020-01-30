@@ -75,13 +75,28 @@ class Contact extends Component {
   confirmDelete = (index) => {
     if (index == 1) {
       this.toggleDeleteModal()
-    } 
+    } else {
+      this.deleteContact(this.state.deleteContact.id)
+    }
   } 
   /*
   ========================================================
   METHOD - DATA FETCHING
   ========================================================
   */
+
+  deleteContact = (id) => {
+    console.log('deleteContactId', id)
+    ACTIONS.deleteContact(id)
+      .then(res => {
+        console.log('res', res);
+        this.toggleDeleteModal();
+        this.fetchContacts();
+      })
+      .catch(err => {
+        console.log('error', err)
+      })
+  }
 
   fetchContacts = async () => {
     ACTIONS.getContacts()
