@@ -11,6 +11,7 @@ import { ListItem } from 'react-native-elements';
 
 import ACTIONS from '../../models/actions';
 import DeleteModal from '../../components/Modal/index';
+import Header from '../../components/Header';
 
 class Contact extends Component {
   constructor(props){
@@ -123,7 +124,7 @@ class Contact extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <Text>Contact Page</Text>
+        <Header />
         { this.renderContacts() }
         <DeleteModal 
           show={showDeleteModal}
