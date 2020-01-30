@@ -2,11 +2,15 @@
 import React, { Component } from 'react';
 import { 
   View, 
-  Text
+  Text,
+  Modal,
+  TouchableHighlight,
+  Alert
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
 import ACTIONS from '../../models/actions';
+import DeleteModal from '../../components/Modal/index';
 
 class Contact extends Component {
   constructor(props){
@@ -16,7 +20,9 @@ class Contact extends Component {
         // Error Handling
         hasError: false,
 
-        contacts: []
+        contacts: [],
+        showDeleteModal: false,
+        deleteContact: {}
     }
   
   }
@@ -44,6 +50,24 @@ class Contact extends Component {
   ========================================================
   */
 
+  toggleDeleteModal = () => {
+    this.setState({ 
+      showDeleteModal: !this.state.showDeleteModal
+    })
+  }
+
+  onLongPressContact = (contact) => {
+    this.setState({
+      deleteContact: contact,
+      showDeleteModal: true
+    })
+  }
+
+  confirmDelete = (index) => {
+    if (index == 1) {
+      this.toggleDeleteModal()
+    } 
+  } 
   /*
   ========================================================
   METHOD - DATA FETCHING
@@ -81,6 +105,7 @@ class Contact extends Component {
               title={contact.firstName + contact.lastName}
               subtitle={contact.age.toString()}
               bottomDivider
+              onLongPress={ () => this.onLongPressContact(contact) }
             />
           )
         }
@@ -89,15 +114,23 @@ class Contact extends Component {
   }
   
   render() {
+    const { showDeleteModal, deleteContact } = this.state;
+
     if (this.state.hasError) {
       // Fallback UI when Error
       // return 
     }
 
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <Text>Contact Page</Text>
         { this.renderContacts() }
+        <DeleteModal 
+          show={showDeleteModal}
+          contact={deleteContact}
+          toggleModal={this.toggleDeleteModal}
+          confirmDelete={this.confirmDelete}
+        />
       </View>
     )
   }
