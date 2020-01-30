@@ -124,7 +124,10 @@ class Contact extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <Header />
+        <Header 
+          title="Contact"
+          isAdd={true}
+        />
         { this.renderContacts() }
         <DeleteModal 
           show={showDeleteModal}

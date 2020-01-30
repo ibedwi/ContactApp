@@ -4,10 +4,17 @@ import {
 } from 'react-navigation-stack';
 
 import Contact from '../pages/Contact';
+import AddContact from '../pages/AddContact';
 
 const stackNavigator = createStackNavigator({
   stack_contact: {
     screen: Contact,
+    navigationOptions: {
+      header: null
+    }
+  },
+  stack_add_contact: {
+    screen: AddContact,
     navigationOptions: {
       header: null
     }

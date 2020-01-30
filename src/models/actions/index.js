@@ -30,7 +30,7 @@ export const getContact = (id) => {
  * @param {string} data.age         - new contact's age
  * @param {string} data.photo       - new contact's photo url
  */
-export const createContact = (id,data) => {
+export const createContact = (data) => {
   return new Promise((resolve, reject) => {
     SERVICES.createContact(data)
       .then(res => resolve(res))

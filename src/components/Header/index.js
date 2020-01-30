@@ -7,8 +7,10 @@ import {
 } from 'react-native';
 import Icon from '../Icon';
 import theme from '../../styles/theme.styles';
+import PropTypes from 'prop-types';
+import NavigationUtils from '../../utils/navigation.utils';
 
-const Header = (props) => {
+const Header = ({ title, isAdd }) => {
   return (
     <View
       style={{
@@ -26,18 +28,32 @@ const Header = (props) => {
           fontWeight: 'bold'
         }}
       >
-        Contact Page
+        { title }
       </Text>
-      <TouchableOpacity>
-        <Icon 
-          name="plus"
-          type={'Feather'}
-          size={20}
-          color="#000"
-        />
-      </TouchableOpacity>
+      {
+        isAdd &&
+        <TouchableOpacity
+          onPress={() => NavigationUtils.navigate('stack_add_contact')}
+        >
+          <Icon 
+            name="plus"
+            type={'Feather'}
+            size={20}
+            color="#000"
+          />
+        </TouchableOpacity>
+      }
     </View>
   )
+}
+
+Header.propTypes = {
+  title: PropTypes.string,
+  isAdd: PropTypes.bool,
+}
+Header.defaultProps = {
+  title: 'Default Title',
+  isAdd: false,
 }
 
 export default Header;
